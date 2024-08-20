@@ -9,9 +9,9 @@ contract ECMath {
         uint256 y;
     }
 
-    uint256 constant CURVE_ORDER = 115792089237316195423570985008687907852837564279074904382605163141518161494337;
-    uint256 constant gx = 55066263022277343669578718895168534326250603453777594175500187360389116729240; // 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798;
-    uint256 constant gy = 32670510020758816978083085130507043184471273380659243275938904335757337482424; // 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8;
+    uint256 constant CURVE_ORDER = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
+    uint256 constant gx = 1; 
+    uint256 constant gy = 2; 
 
     function rationalAdd(ECPoint calldata A, ECPoint calldata B, uint256 num, uint256 den)
         public
@@ -37,11 +37,8 @@ contract ECMath {
         uint256 f = mulmod(num, denInv, CURVE_ORDER);
 
         // ==== 2. scalar multiply generator point with the fraction result ======
-        console.log(f);
-        console.log(gx);
-        console.log(gy);
         ECPoint memory fG;
-        // (fG.x, fG.y) = _multiplyPoints(gx, gy, f);
+        (fG.x, fG.y) = _multiplyPoints(gx, gy, f);
 
         // ==== 3. add the points A and B using precompile 0x6
         ECPoint memory C;

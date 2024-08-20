@@ -1,19 +1,17 @@
-from ecpy.curves import Curve
+from py_ecc.bn128 import G1, multiply
 import sys
 
 def main():
-    # Initialize the curve
-    cv = Curve.get_curve('secp256k1')
-    G = cv.generator
+    G = G1
 
     # take input number as arg
     num = int(sys.argv[1])
 
     # multiply the number by generator point
-    point = num * G
+    point = multiply(G, num)
 
     # print the x and y coordinates
-    x, y = point.x, point.y
+    x, y = point[0], point[1]
     print(f"{x},{y}")
 
 if __name__ == "__main__":
