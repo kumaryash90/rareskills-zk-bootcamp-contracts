@@ -10,8 +10,8 @@ contract ECMath {
     }
 
     uint256 constant CURVE_ORDER = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
-    uint256 constant gx = 1; 
-    uint256 constant gy = 2; 
+    uint256 constant gx = 1;
+    uint256 constant gy = 2;
 
     function rationalAdd(ECPoint calldata A, ECPoint calldata B, uint256 num, uint256 den)
         public
