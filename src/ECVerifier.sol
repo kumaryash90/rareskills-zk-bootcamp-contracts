@@ -35,8 +35,6 @@ contract ECVerifier {
         (X1.x, X1.y) = _addPoints(X1.x, X1.y, xTemp, yTemp);
         (xTemp, yTemp) = _multiplyPoints(G1.x, G1.y, x3);
         (X1.x, X1.y) = _addPoints(X1.x, X1.y, xTemp, yTemp);
-
-        
     }
 
     function _addPoints(uint256 x1, uint256 y1, uint256 x2, uint256 y2) internal view returns (uint256, uint256) {

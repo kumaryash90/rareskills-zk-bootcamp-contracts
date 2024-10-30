@@ -106,26 +106,25 @@ contract PairingVerifier {
 
         uint256[] memory input = new uint256[](inputSize);
 
-        for(uint256 i = 0; i < 4; i++) {
+        for (uint256 i = 0; i < 4; i++) {
             uint256 j = i * 6;
 
             input[j + 0] = p1[i].x;
             input[j + 1] = p1[i].y;
-            input[j + 2] = p2[i].x[0];
-            input[j + 3] = p2[i].x[1];
-            input[j + 4] = p2[i].y[0];
-            input[j + 5] = p2[i].y[1];
+            input[j + 2] = p2[i].x[1];
+            input[j + 3] = p2[i].x[0];
+            input[j + 4] = p2[i].y[1];
+            input[j + 5] = p2[i].y[0];
         }
 
         uint256[1] memory out;
-        // bool success;
-        // bytes memory result;
+        bool success;
 
-        (bool success, bytes memory result) = address(8).staticcall(abi.encode(input));
+        assembly {
+            success := staticcall(sub(gas(), 2000), 8, add(input, 0x20), mul(inputSize, 0x20), out, 0x20)
+        }
 
-        require(success, "pairing verification failed");
-
-        out[0] = abi.decode(result, (uint256));
+        require(success, "pairing failed");
 
         return out[0] != 0;
     }
